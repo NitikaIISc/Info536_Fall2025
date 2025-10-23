@@ -5,8 +5,12 @@ library(dplyr)
 library(ggplot2)
 
 # Load the dataset
-gtd_data <- read.csv("globalterrorismdb_0718dist.csv", 
-                     stringsAsFactors = FALSE)
+gtd_data <- read.csv("globalterrorismdb_0718dist.csv")
 
-# Basic data exploration
-glimpse(gtd_data)
+# keep key columns
+gtd_clean <- gtd_data %>%
+  select(eventid, iyear, country_txt, success, attacktype1_txt) %>%
+  filter(!is.na(success))
+
+# Cleaned data exploration
+glimpse(gtd_clean)
