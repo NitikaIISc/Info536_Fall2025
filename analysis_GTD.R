@@ -36,3 +36,14 @@ gtd_clean <- gtd_data %>%
   select(region_txt, nkill) %>%              # region name and number killed
   filter(!is.na(region_txt)) %>%             # remove missing regions
   mutate(nkill = ifelse(is.na(nkill), 0, nkill))
+
+
+# Summarize total fatalities per region
+fatalities_per_region <- gtd_clean %>%
+  group_by(region_txt) %>%
+  summarise(total_fatalities = sum(nkill, na.rm = TRUE)) %>%
+  arrange(desc(total_fatalities))
+
+# View the summary
+print(fatalities_per_region)
+
