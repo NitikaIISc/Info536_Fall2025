@@ -24,3 +24,15 @@ gtd_data <- read.csv("globalterrorismdb_0718dist.csv",
 
 # Basic data exploration
 glimpse(gtd_data)
+
+names(gtd_data)
+
+# we can see we have 2 columns which can help us answer 
+# Group 2	Fatalities per Region Group 2: Ankur, Bharath Cherukuru, Bharath Naveen
+# nkill and region_txt
+
+# Select relevant columns and clean data
+gtd_clean <- gtd_data %>%
+  select(region_txt, nkill) %>%              # region name and number killed
+  filter(!is.na(region_txt)) %>%             # remove missing regions
+  mutate(nkill = ifelse(is.na(nkill), 0, nkill))
