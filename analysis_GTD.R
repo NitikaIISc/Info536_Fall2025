@@ -16,3 +16,11 @@ target_data <- terror_data %>%
 head(target_data)
 
 #Role2
+# Count number of attacks by each target type
+target_summary <- target_data %>%
+  group_by(targtype1_txt) %>%
+  summarise(total_attacks = n()) %>%
+  arrange(desc(total_attacks))
+
+# View summary
+print(target_summary)
