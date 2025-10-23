@@ -47,3 +47,9 @@ fatalities_per_region <- gtd_clean %>%
 # View the summary
 print(fatalities_per_region)
 
+
+# This is the visualization part
+library(ggplot2)
+ggplot(fatalities_per_region, aes(x= reorder(region_txt, total_fatalities), 
+                                  y= total_fatalities)) + geom_bar(stat = "identity" , fill = "dodgerblue") + coord_flip() + labs(title = "Total fatalities per region", x= "region", y="total fatalities") + theme_minimal()
+
