@@ -24,3 +24,14 @@ target_summary <- target_data %>%
 
 # View summary
 print(target_summary)
+
+#Role3
+# Bar plot of attack frequency by target type
+ggplot(target_summary, aes(x = reorder(targtype1_txt, total_attacks), 
+                           y = total_attacks, fill = targtype1_txt)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  coord_flip() +
+  labs(title = "Frequency of Terrorist Attacks by Target Type",
+       x = "Target Type",
+       y = "Number of Attacks") +
+  theme_minimal(base_size = 12)
