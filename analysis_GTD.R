@@ -1,12 +1,37 @@
-# Global Terrorism Database Collaborative Analysis
-
-# Load necessary libraries
 library(dplyr)
 library(ggplot2)
+library(readr)
 
-# Load the dataset
-gtd_data <- read.csv("globalterrorismdb_0718dist.csv", 
-                     stringsAsFactors = FALSE)
+#Role1
 
-# Basic data exploration
-glimpse(gtd_data)
+# Read the dataset (adjust path if needed)
+terror_data <- read_csv("globalterrorismdb_0718dist.csv")
+
+# Select only relevant columns for target type analysis
+target_data <- terror_data %>%
+  select(iyear, country_txt, region_txt, targtype1_txt) %>%
+  filter(!is.na(targtype1_txt))  # remove missing target types
+
+# Preview
+head(target_data)
+
+#Role2
+# Count number of attacks by each target type
+target_summary <- target_data %>%
+  group_by(targtype1_txt) %>%
+  summarise(total_attacks = n()) %>%
+  arrange(desc(total_attacks))
+
+# View summary
+print(target_summary)
+
+#Role3
+# Bar plot of attack frequency by target type
+ggplot(target_summary, aes(x = reorder(targtype1_txt, total_attacks), 
+                           y = total_attacks, fill = targtype1_txt)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  coord_flip() +
+  labs(title = "Frequency of Terrorist Attacks by Target Type",
+       x = "Target Type",
+       y = "Number of Attacks") +
+  theme_minimal(base_size = 12)
