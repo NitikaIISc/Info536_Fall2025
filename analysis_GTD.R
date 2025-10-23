@@ -12,6 +12,7 @@ gtd_data <- read.csv("globalterrorismdb_0718dist.csv",
 glimpse(gtd_data)
 View(gtd_data)
 
+#Task-1
 unique(gtd_data$country_txt)
 
 gtd_data_clean <- gtd_data %>% 
@@ -22,4 +23,9 @@ attacks_by_country <- gtd_data_clean %>%
 
 View(attacks_by_country)
 
+#Task -2 Count 
 
+country_attacks <- attacks_by_country %>% summarise(total_attacks = n())
+View(country_attacks %>% arrange(desc(total_attacks)))
+
+# Tasj -3 Visualization
