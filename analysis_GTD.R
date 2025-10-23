@@ -25,7 +25,14 @@ View(attacks_by_country)
 
 #Task -2 Count 
 
-country_attacks <- attacks_by_country %>% summarise(total_attacks = n())
-View(country_attacks %>% arrange(desc(total_attacks)))
+country_attacks <- attacks_by_country %>% summarise(total_attacks = n())%>% 
+  arrange(desc(total_attacks))
 
-# Tasj -3 Visualization
+# Task -3 Visualization
+# Subsetting the data for a cleaner Visualization
+ggplot(country_attacks[1:10,],aes(x=country_txt,y=total_attacks))+geom_col()+
+  labs(title = "Top 10 Countries by Number of Attacks",
+       x = "Country",
+       y = "Number of Attacks") +
+  theme_minimal()
+
