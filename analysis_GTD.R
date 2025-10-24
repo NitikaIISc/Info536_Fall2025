@@ -14,3 +14,17 @@ gtd_clean <- gtd_data %>%
 
 # Cleaned data exploration
 glimpse(gtd_clean)
+
+
+
+# calculate attack success rate by year
+success_rate_year <- gtd_clean %>%
+  group_by(iyear) %>%
+  summarise(
+    total_attacks = n(),
+    successful = sum(success == 1),
+    unsuccessful = sum(success == 0),
+    success_rate = round(successful / total_attacks * 100, 2),
+    unsuccess_rate = round(unsuccessful / total_attacks * 100, 2)
+  )
+
